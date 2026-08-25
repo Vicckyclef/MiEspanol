@@ -3,12 +3,14 @@ import { VOCABULARY, LESSONS } from '../data/spanishData';
 import { Flashcard } from '../components/Flashcard';
 import { PronunciationPractice } from '../components/PronunciationPractice';
 import { QuizQuestion } from '../components/QuizQuestion';
+import { NumbersMaster } from '../components/NumbersMaster';
+import { DictionarySearch } from '../components/DictionarySearch';
 import { useUser } from '../context/UserContext';
-import { Layers, Mic, HelpCircle, Sparkles } from 'lucide-react';
+import { Layers, Mic, HelpCircle, Sparkles, Calculator, Search } from 'lucide-react';
 
 export const PracticePage = () => {
   const { addXp } = useUser();
-  const [practiceMode, setPracticeMode] = useState('flashcards'); // 'flashcards' | 'speech' | 'quiz'
+  const [practiceMode, setPracticeMode] = useState('numbers'); // 'numbers' | 'dictionary' | 'flashcards' | 'speech' | 'quiz'
 
   // Flashcards state
   const [flashcardIndex, setFlashcardIndex] = useState(0);
@@ -29,21 +31,41 @@ export const PracticePage = () => {
       {/* Header */}
       <div className="text-center space-y-2">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-bold text-xs uppercase tracking-wider mb-2">
-          <Sparkles className="w-3.5 h-3.5" /> Interactive Practice Hub
+          <Sparkles className="w-3.5 h-3.5" /> Interactive Practice & Learning Hub
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Strengthen Your Spanish Skills
         </h1>
         <p className="text-slate-600 font-medium text-sm sm:text-base">
-          Choose a workout mode below to practice flashcards, pronunciation, or custom quizzes.
+          Choose a workout mode below to practice numbers up to trillions, live dictionary lookup, flashcards, or quizzes.
         </p>
       </div>
 
       {/* Mode Switcher Tabs */}
-      <div className="grid grid-cols-3 gap-3 p-1.5 bg-slate-100 rounded-2xl max-w-md mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-1.5 bg-slate-100 rounded-2xl max-w-2xl mx-auto text-xs font-extrabold">
+        <button
+          onClick={() => setPracticeMode('numbers')}
+          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
+            practiceMode === 'numbers'
+              ? 'bg-white text-emerald-600 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Calculator className="w-4 h-4" /> Numbers (0-1T+)
+        </button>
+        <button
+          onClick={() => setPracticeMode('dictionary')}
+          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
+            practiceMode === 'dictionary'
+              ? 'bg-white text-cyan-600 shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Search className="w-4 h-4" /> Live Search
+        </button>
         <button
           onClick={() => setPracticeMode('flashcards')}
-          className={`py-3 px-3 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${
+          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
             practiceMode === 'flashcards'
               ? 'bg-white text-rose-600 shadow-sm'
               : 'text-slate-600 hover:text-slate-900'
@@ -53,7 +75,7 @@ export const PracticePage = () => {
         </button>
         <button
           onClick={() => setPracticeMode('speech')}
-          className={`py-3 px-3 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${
+          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
             practiceMode === 'speech'
               ? 'bg-white text-rose-600 shadow-sm'
               : 'text-slate-600 hover:text-slate-900'
@@ -63,7 +85,7 @@ export const PracticePage = () => {
         </button>
         <button
           onClick={() => setPracticeMode('quiz')}
-          className={`py-3 px-3 rounded-xl font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2 transition-all ${
+          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
             practiceMode === 'quiz'
               ? 'bg-white text-rose-600 shadow-sm'
               : 'text-slate-600 hover:text-slate-900'
@@ -74,6 +96,18 @@ export const PracticePage = () => {
       </div>
 
       {/* Practice Display */}
+      {practiceMode === 'numbers' && (
+        <div className="py-2">
+          <NumbersMaster />
+        </div>
+      )}
+
+      {practiceMode === 'dictionary' && (
+        <div className="py-2">
+          <DictionarySearch />
+        </div>
+      )}
+
       {practiceMode === 'flashcards' && (
         <div className="py-4">
           <Flashcard

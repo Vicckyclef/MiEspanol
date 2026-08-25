@@ -9,11 +9,11 @@ export const CATEGORIES = [
   },
   {
     id: 'numbers',
-    title: 'Numbers & Time',
+    title: 'Numbers: 1 to Trillions',
     icon: 'Clock',
     color: 'from-emerald-500 to-teal-600',
-    description: 'Learn counting, asking for the time, dates, and handling numbers easily.',
-    lessonsCount: 3,
+    description: 'Master counting from 1–100, thousands, millions, billions, and trillions!',
+    lessonsCount: 4,
   },
   {
     id: 'food',
@@ -57,11 +57,11 @@ export const CATEGORIES = [
   },
   {
     id: 'vocabulary',
-    title: 'Spanish Vocabulary',
+    title: 'Expanded Spanish Vocabulary',
     icon: 'Sparkles',
     color: 'from-cyan-500 to-blue-600',
-    description: 'Expand your core Spanish vocabulary across essential everyday categories.',
-    lessonsCount: 4,
+    description: 'Expand your core Spanish vocabulary across animals, weather, work, and everyday life.',
+    lessonsCount: 5,
   },
 ];
 
@@ -78,12 +78,12 @@ export const VOCABULARY = [
   { id: 'v9', categoryId: 'greetings', spanish: 'Por favor', english: 'Please', phonetic: 'pohr fah-VOHR', example: 'Un café, por favor.', phoneticExample: 'oon kah-FEH, pohr fah-VOHR.' },
   { id: 'v10', categoryId: 'greetings', spanish: 'Hasta luego', english: 'See you later', phonetic: 'AH-stah LWAY-goh', example: '¡Adiós! Hasta luego.', phoneticExample: 'ah-DYOHS! AH-stah LWAY-goh.' },
 
-  // Numbers & Time
-  { id: 'v11', categoryId: 'numbers', spanish: 'Uno, dos, tres', english: 'One, two, three', phonetic: 'OO-noh, DOHS, TRES', example: 'Tengo tres libros.', phoneticExample: 'TEHN-goh TRES LEE-brohs.' },
-  { id: 'v12', categoryId: 'numbers', spanish: '¿Qué hora es?', english: 'What time is it?', phonetic: 'keh OH-rah EHS', example: 'Disculpe, ¿qué hora es?', phoneticExample: 'dees-KOOL-peh, keh OH-rah EHS?' },
-  { id: 'v13', categoryId: 'numbers', spanish: 'Hoy', english: 'Today', phonetic: 'OY', example: 'Hoy es un gran día.', phoneticExample: 'OY ehs oon grahn DEE-ah.' },
-  { id: 'v14', categoryId: 'numbers', spanish: 'Mañana', english: 'Tomorrow / Morning', phonetic: 'mah-NYAH-nah', example: 'Nos vemos mañana.', phoneticExample: 'nohs VEH-mohs mah-NYAH-nah.' },
-  { id: 'v15', categoryId: 'numbers', spanish: 'Ayer', english: 'Yesterday', phonetic: 'ah-YEHR', example: 'Ayer fue domingo.', phoneticExample: 'ah-YEHR fway doh-MEEN-goh.' },
+  // Numbers & Time (Expanded)
+  { id: 'v11', categoryId: 'numbers', spanish: 'Cero, Uno, Dos, Tres', english: '0, 1, 2, 3', phonetic: 'SEH-roh, OO-noh, DOHS, TRES', example: 'Tengo tres libros.', phoneticExample: 'TEHN-goh TRES LEE-brohs.' },
+  { id: 'v12', categoryId: 'numbers', spanish: 'Cien (100)', english: 'One hundred (100)', phonetic: 'SYEHN', example: 'Tengo cien euros.', phoneticExample: 'TEHN-goh SYEHN EH-oo-rohs.' },
+  { id: 'v13', categoryId: 'numbers', spanish: 'Mil (1,000)', english: 'One thousand (1,000)', phonetic: 'MEEL', example: 'Mil gracias por todo.', phoneticExample: 'MEEL GRAH-see-ahs pohr TOH-doh.' },
+  { id: 'v14', categoryId: 'numbers', spanish: 'Un millón (1,000,000)', english: 'One million', phonetic: 'oon mee-YOHN', example: 'Un millón de personas.', phoneticExample: 'oon mee-YOHN deh pehr-SOH-nahs.' },
+  { id: 'v15', categoryId: 'numbers', spanish: 'Un billón (1,000,000,000,000)', english: 'One trillion', phonetic: 'oon bee-YOHN', example: 'Un billón es un número gigantesco.', phoneticExample: 'oon bee-YOHN ehs oon NOO-meh-roh.' },
 
   // Food & Drinks
   { id: 'v16', categoryId: 'food', spanish: 'Agua', english: 'Water', phonetic: 'AH-gwah', example: 'Quiero un vaso de agua, por favor.', phoneticExample: 'KYEH-roh oon VAH-soh deh AH-gwah, pohr fah-VOHR.' },
@@ -109,6 +109,13 @@ export const VOCABULARY = [
   { id: 'v30', categoryId: 'vocabulary', spanish: 'Tengo hambre', english: 'I am hungry', phonetic: 'TEHN-goh AHM-breh', example: 'Tengo hambre, vamos a comer.', phoneticExample: 'TEHN-goh AHM-breh, VAH-mohs ah koh-MEHR.' },
   { id: 'v31', categoryId: 'vocabulary', spanish: 'Lo siento', english: 'I am sorry', phonetic: 'loh SYEHN-toh', example: 'Lo siento, no entiendo.', phoneticExample: 'loh SYEHN-toh, noh ehn-TYEHN-doh.' },
   { id: 'v32', categoryId: 'vocabulary', spanish: 'De nada', english: "You're welcome", phonetic: 'deh NAH-dah', example: '¡De nada! Fue un placer.', phoneticExample: 'deh NAH-dah! FWAY oon plah-SEHR.' },
+
+  // NEW Vocabulary items (Animals, Work, Weather)
+  { id: 'v33', categoryId: 'vocabulary', spanish: 'El gato', english: 'The cat', phonetic: 'ehl GAH-toh', example: 'El gato duerme mucho.', phoneticExample: 'ehl GAH-toh DWER-meh MOO-choh.' },
+  { id: 'v34', categoryId: 'vocabulary', spanish: 'El perro', english: 'The dog', phonetic: 'ehl PEH-rroh', example: 'El perro es muy fiel.', phoneticExample: 'ehl PEH-rroh ehs mwee FYEHL.' },
+  { id: 'v35', categoryId: 'vocabulary', spanish: 'Hace buen tiempo', english: 'The weather is good', phonetic: 'AH-seh bwehn TYEHM-poh', example: 'Hoy hace buen tiempo.', phoneticExample: 'OY AH-seh bwehn TYEHM-poh.' },
+  { id: 'v36', categoryId: 'vocabulary', spanish: 'El trabajo', english: 'The job / work', phonetic: 'ehl trah-BAH-hoh', example: 'Me gusta mi trabajo.', phoneticExample: 'meh GOOS-tah mee trah-BAH-hoh.' },
+  { id: 'v37', categoryId: 'vocabulary', spanish: 'La computadora', english: 'The computer', phonetic: 'lah kohm-poo-tah-DOH-rah', example: 'Uso la computadora para estudiar.', phoneticExample: 'OO-soh lah kohm-poo-tah-DOH-rah.' },
 ];
 
 export const LESSONS = [
@@ -187,28 +194,36 @@ export const LESSONS = [
   {
     id: 'numbers-1',
     categoryId: 'numbers',
-    title: 'Numbers & Asking the Time',
-    subtitle: 'Learn simple numbers and asking "What time is it?"',
+    title: 'Numbers: 1 to 100 & Big Numbers',
+    subtitle: 'Learn numbers 1 to 100, thousands, millions, and trillions!',
     xpReward: 50,
     vocabIds: ['v11', 'v12', 'v13', 'v14', 'v15'],
     quizQuestions: [
       {
         id: 'q7',
         type: 'multiple-choice',
-        question: 'How do you ask "What time is it?" in Spanish?',
-        options: ['¿Qué hora es?', '¿Dónde estás?', '¿Cómo estás?', '¿Cuánto cuesta?'],
-        answer: '¿Qué hora es?',
-        explanation: '"¿Qué hora es?" is the direct question for asking time.'
+        question: 'How do you say "One hundred (100)" in Spanish?',
+        options: ['Cien', 'Mil', 'Diez', 'Un millón'],
+        answer: 'Cien',
+        explanation: '"Cien" is 100 in Spanish.'
       },
       {
         id: 'q8',
         type: 'fill-in-blank',
-        question: 'Complete the sentence: "Nos vemos _____" (See you tomorrow)',
-        sentence: 'Nos vemos _____',
-        blankAnswer: 'mañana',
-        options: ['mañana', 'ayer', 'hoy', 'ahora'],
-        answer: 'mañana',
-        explanation: '"Mañana" means tomorrow or morning depending on context.'
+        question: 'Complete: "One thousand is _____ en español."',
+        sentence: 'One thousand is _____ en español.',
+        blankAnswer: 'mil',
+        options: ['mil', 'cien', 'billón', 'diez'],
+        answer: 'mil',
+        explanation: '"Mil" means 1,000 in Spanish.'
+      },
+      {
+        id: 'q9_num',
+        type: 'multiple-choice',
+        question: 'What is "Un billón" in Spanish counting?',
+        options: ['1,000,000,000,000 (Trillion in EN)', '1,000 (Thousand)', '1,000,000 (Million)', '100 (Hundred)'],
+        answer: '1,000,000,000,000 (Trillion in EN)',
+        explanation: 'In standard Spanish, "un billón" equals a million millions (1,000,000,000,000 or 10^12).'
       }
     ]
   },
