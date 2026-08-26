@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Volume2, Mic, MicOff, CheckCircle2, RefreshCw } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 
@@ -7,13 +7,8 @@ export const PronunciationPractice = ({ phrase, onSuccess }) => {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
   const [feedback, setFeedback] = useState(null); // 'success', 'try_again', or null
-  const [supported, setSupported] = useState(true);
 
-  useEffect(() => {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-      setSupported(false);
-    }
-  }, []);
+  const isSupported = typeof window !== 'undefined' && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window);
 
   const handleListen = () => {
     speakText(phrase.spanish);
@@ -22,7 +17,7 @@ export const PronunciationPractice = ({ phrase, onSuccess }) => {
   const startSpeechRecognition = () => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SpeechRecognition) {
-      setSupported(false);
+      simulateRecording();
       return;
     }
 
@@ -84,7 +79,7 @@ export const PronunciationPractice = ({ phrase, onSuccess }) => {
         </span>
         <button
           onClick={handleListen}
-          className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white bg-white/10 px-3 py-1.5 rounded-full transition-colors"
+          className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white bg-white/10 px-3 py-1.5 rounded-full transition-colors cursor-pointer"
         >
           <Volume2 className="w-4 h-4 text-rose-400" /> Listen
         </button>
@@ -103,9 +98,9 @@ export const PronunciationPractice = ({ phrase, onSuccess }) => {
       {/* Action Recording Button */}
       <div className="flex flex-col items-center justify-center gap-4 my-6">
         <button
-          onClick={supported ? startSpeechRecognition : simulateRecording}
+          onClick={isSupported ? startSpeechRecognition : simulateRecording}
           disabled={isListening}
-          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 ${
+          className={`w-20 h-20 rounded-full flex items-center justify-center shadow-lg transition-all transform hover:scale-105 cursor-pointer ${
             isListening
               ? 'bg-rose-500 text-white animate-pulse ring-8 ring-rose-500/30'
               : 'bg-rose-600 hover:bg-rose-500 text-white'

@@ -94,9 +94,9 @@ export function numberToSpanish(num) {
 
 export function generateRandomNumberQuiz() {
   const categories = [
-    { name: '1 to 20', min: 1, max: 20 },
-    { name: '21 to 100', min: 21, max: 100 },
-    { name: '100 to 1,000', min: 101, max: 1000 },
+    { name: '0 to 20', min: 0, max: 20 },
+    { name: '21 to 99', min: 21, max: 99 },
+    { name: 'Hundreds (100 - 999)', min: 100, max: 999 },
     { name: 'Thousands (1,000 - 999,999)', min: 1000, max: 999999 },
     { name: 'Millions (1M - 999M)', min: 1000000, max: 999000000 },
     { name: 'Billions & Trillions', min: 1000000000, max: 5000000000000 },

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Volume2, PlusCircle, CheckCircle2, Globe, Sparkles } from 'lucide-react';
+import { Search, Volume2, PlusCircle, CheckCircle2, Globe } from 'lucide-react';
 import { searchWordOnline } from '../utils/apiFetcher';
 import { useUser } from '../context/UserContext';
 
@@ -58,7 +58,7 @@ export const DictionarySearch = () => {
         <button
           type="submit"
           disabled={loading || !query.trim()}
-          className="px-6 py-3.5 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-sm shadow-md disabled:opacity-50 transition-all shrink-0"
+          className="px-6 py-3.5 rounded-2xl bg-cyan-600 hover:bg-cyan-700 text-white font-extrabold text-sm shadow-md disabled:opacity-50 transition-all shrink-0 cursor-pointer"
         >
           {loading ? 'Searching...' : 'Search'}
         </button>
@@ -75,7 +75,7 @@ export const DictionarySearch = () => {
                 {result.spanish}
                 <button
                   onClick={() => speakText(result.spanish)}
-                  className="p-2 rounded-full bg-white hover:bg-cyan-100 hover:text-cyan-600 text-slate-600 shadow-2xs transition-colors"
+                  className="p-2 rounded-full bg-white hover:bg-cyan-100 hover:text-cyan-600 text-slate-600 shadow-2xs transition-colors cursor-pointer"
                   title="Listen"
                 >
                   <Volume2 className="w-4 h-4" />
@@ -89,7 +89,7 @@ export const DictionarySearch = () => {
             {!saved ? (
               <button
                 onClick={handleSaveToBank}
-                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center gap-1.5 transition-colors"
+                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold flex items-center gap-1.5 transition-colors cursor-pointer"
               >
                 <PlusCircle className="w-4 h-4" /> Save to Vocabulary
               </button>

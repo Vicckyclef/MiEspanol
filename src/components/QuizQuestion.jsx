@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, XCircle, ArrowRight, Volume2 } from 'lucide-react';
+import { CheckCircle2, XCircle, ArrowRight } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 
 export const QuizQuestion = ({ question, onAnswer, isLastQuestion, questionIndex, totalQuestions }) => {
@@ -79,7 +79,7 @@ export const QuizQuestion = ({ question, onAnswer, isLastQuestion, questionIndex
                 key={idx}
                 disabled={submitted}
                 onClick={() => setSelectedOption(option)}
-                className={`w-full text-left p-4 rounded-2xl border-2 font-medium transition-all flex items-center justify-between ${optionStyle}`}
+                className={`w-full text-left p-4 rounded-2xl border-2 font-medium transition-all flex items-center justify-between cursor-pointer ${optionStyle}`}
               >
                 <span className="text-base">{option}</span>
                 <span className="w-6 h-6 rounded-full border flex items-center justify-center text-xs font-bold border-current opacity-70">
@@ -126,7 +126,7 @@ export const QuizQuestion = ({ question, onAnswer, isLastQuestion, questionIndex
                     key={idx}
                     disabled={submitted}
                     onClick={() => setTypedAnswer(opt)}
-                    className={`p-3 rounded-xl border-2 font-bold text-center transition-all ${btnStyle}`}
+                    className={`p-3 rounded-xl border-2 font-bold text-center transition-all cursor-pointer ${btnStyle}`}
                   >
                     {opt}
                   </button>
@@ -181,14 +181,14 @@ export const QuizQuestion = ({ question, onAnswer, isLastQuestion, questionIndex
         <button
           onClick={handleCheck}
           disabled={question.type === 'fill-in-blank' ? !typedAnswer : !selectedOption}
-          className="w-full py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-base shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+          className="w-full py-4 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-base shadow-md disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
         >
           Check Answer
         </button>
       ) : (
         <button
           onClick={handleNext}
-          className="w-full py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-base shadow-md transition-all flex items-center justify-center gap-2"
+          className="w-full py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-base shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           {isLastQuestion ? 'Complete Lesson' : 'Continue'} <ArrowRight className="w-5 h-5" />
         </button>

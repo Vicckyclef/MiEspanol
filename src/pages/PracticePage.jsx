@@ -1,125 +1,142 @@
 import React, { useState } from 'react';
-import { VOCABULARY, LESSONS } from '../data/spanishData';
+import { VOCABULARY } from '../data/spanishData';
 import { Flashcard } from '../components/Flashcard';
-import { PronunciationPractice } from '../components/PronunciationPractice';
-import { QuizQuestion } from '../components/QuizQuestion';
+import { WordMatchGame } from '../components/WordMatchGame';
+import { SentenceBuilder } from '../components/SentenceBuilder';
 import { NumbersMaster } from '../components/NumbersMaster';
+import { PronunciationPractice } from '../components/PronunciationPractice';
 import { DictionarySearch } from '../components/DictionarySearch';
 import { useUser } from '../context/UserContext';
-import { Layers, Mic, HelpCircle, Sparkles, Calculator, Search } from 'lucide-react';
+import {
+  Layers,
+  Gamepad2,
+  ListOrdered,
+  Calculator,
+  Mic,
+  Search,
+  Sparkles
+} from 'lucide-react';
 
 export const PracticePage = () => {
   const { addXp } = useUser();
-  const [practiceMode, setPracticeMode] = useState('numbers'); // 'numbers' | 'dictionary' | 'flashcards' | 'speech' | 'quiz'
+  const [practiceMode, setPracticeMode] = useState('flashcards'); // 'flashcards' | 'match' | 'sentence' | 'numbers' | 'speech' | 'dictionary'
 
   // Flashcards state
   const [flashcardIndex, setFlashcardIndex] = useState(0);
+  const [flashcardLevel, setFlashcardLevel] = useState('all');
+
+  const filteredVocab = flashcardLevel === 'all'
+    ? VOCABULARY
+    : VOCABULARY.filter(v => v.level === flashcardLevel);
 
   // Speech state
   const [speechIndex, setSpeechIndex] = useState(0);
 
-  // Quiz state
-  const allQuestions = LESSONS.flatMap((l) => l.quizQuestions);
-  const [quizIndex, setQuizIndex] = useState(0);
-
   const handleSpeechSuccess = () => {
-    addXp(10);
+    addXp(15);
   };
+
+  const practiceModes = [
+    { id: 'flashcards', label: 'Flashcards', icon: Layers, color: 'text-rose-600' },
+    { id: 'match', label: 'Word Match Game', icon: Gamepad2, color: 'text-amber-600' },
+    { id: 'sentence', label: 'Sentence Builder', icon: ListOrdered, color: 'text-indigo-600' },
+    { id: 'numbers', label: 'Numbers (0-1T+)', icon: Calculator, color: 'text-emerald-600' },
+    { id: 'speech', label: 'Speech Practice', icon: Mic, color: 'text-purple-600' },
+    { id: 'dictionary', label: 'Live Dictionary', icon: Search, color: 'text-cyan-600' },
+  ];
 
   return (
     <div className="space-y-8 pb-12 max-w-4xl mx-auto">
       {/* Header */}
       <div className="text-center space-y-2">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 font-bold text-xs uppercase tracking-wider mb-2">
-          <Sparkles className="w-3.5 h-3.5" /> Interactive Practice & Learning Hub
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-800 font-extrabold text-xs uppercase tracking-wider">
+          <Sparkles className="w-3.5 h-3.5 text-amber-500" /> Interactive Practice & Task Hub
         </div>
         <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
           Strengthen Your Spanish Skills
         </h1>
-        <p className="text-slate-600 font-medium text-sm sm:text-base">
-          Choose a workout mode below to practice numbers up to trillions, live dictionary lookup, flashcards, or quizzes.
+        <p className="text-slate-600 font-medium text-sm sm:text-base max-w-xl mx-auto">
+          Choose any workout below: interactive flashcards, tile matching, sentence construction, numbers to trillions, or live dictionary search.
         </p>
       </div>
 
       {/* Mode Switcher Tabs */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 p-1.5 bg-slate-100 rounded-2xl max-w-2xl mx-auto text-xs font-extrabold">
-        <button
-          onClick={() => setPracticeMode('numbers')}
-          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
-            practiceMode === 'numbers'
-              ? 'bg-white text-emerald-600 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <Calculator className="w-4 h-4" /> Numbers (0-1T+)
-        </button>
-        <button
-          onClick={() => setPracticeMode('dictionary')}
-          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
-            practiceMode === 'dictionary'
-              ? 'bg-white text-cyan-600 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <Search className="w-4 h-4" /> Live Search
-        </button>
-        <button
-          onClick={() => setPracticeMode('flashcards')}
-          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
-            practiceMode === 'flashcards'
-              ? 'bg-white text-rose-600 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <Layers className="w-4 h-4" /> Flashcards
-        </button>
-        <button
-          onClick={() => setPracticeMode('speech')}
-          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
-            practiceMode === 'speech'
-              ? 'bg-white text-rose-600 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <Mic className="w-4 h-4" /> Speech
-        </button>
-        <button
-          onClick={() => setPracticeMode('quiz')}
-          className={`py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
-            practiceMode === 'quiz'
-              ? 'bg-white text-rose-600 shadow-sm'
-              : 'text-slate-600 hover:text-slate-900'
-          }`}
-        >
-          <HelpCircle className="w-4 h-4" /> Quiz Mode
-        </button>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/60 text-xs font-black">
+        {practiceModes.map((mode) => {
+          const Icon = mode.icon;
+          const isActive = practiceMode === mode.id;
+
+          return (
+            <button
+              key={mode.id}
+              onClick={() => setPracticeMode(mode.id)}
+              className={`py-3 px-2.5 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
+                isActive
+                  ? 'bg-white text-slate-900 shadow-sm border border-slate-200/50'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-white/40'
+              }`}
+            >
+              <Icon className={`w-4 h-4 ${isActive ? mode.color : 'text-slate-400'}`} />
+              <span className="truncate">{mode.label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Practice Display */}
+      {/* Mode 1: Flashcards */}
+      {practiceMode === 'flashcards' && (
+        <div className="space-y-4">
+          <div className="flex justify-center gap-2">
+            {['all', 'beginner', 'intermediate', 'pro'].map((lvl) => (
+              <button
+                key={lvl}
+                onClick={() => {
+                  setFlashcardLevel(lvl);
+                  setFlashcardIndex(0);
+                }}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold capitalize transition-all cursor-pointer ${
+                  flashcardLevel === lvl
+                    ? 'bg-rose-600 text-white shadow-xs'
+                    : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                {lvl} ({lvl === 'all' ? VOCABULARY.length : VOCABULARY.filter(v => v.level === lvl).length})
+              </button>
+            ))}
+          </div>
+
+          <Flashcard
+            flashcard={filteredVocab[flashcardIndex]}
+            currentIndex={flashcardIndex}
+            totalCards={filteredVocab.length}
+            onNext={() => setFlashcardIndex((prev) => (prev + 1) % filteredVocab.length)}
+            onPrev={() => setFlashcardIndex((prev) => (prev - 1 + filteredVocab.length) % filteredVocab.length)}
+          />
+        </div>
+      )}
+
+      {/* Mode 2: Word Match Game */}
+      {practiceMode === 'match' && (
+        <div className="py-2">
+          <WordMatchGame />
+        </div>
+      )}
+
+      {/* Mode 3: Sentence Builder */}
+      {practiceMode === 'sentence' && (
+        <div className="py-2">
+          <SentenceBuilder />
+        </div>
+      )}
+
+      {/* Mode 4: Numbers Master */}
       {practiceMode === 'numbers' && (
         <div className="py-2">
           <NumbersMaster />
         </div>
       )}
 
-      {practiceMode === 'dictionary' && (
-        <div className="py-2">
-          <DictionarySearch />
-        </div>
-      )}
-
-      {practiceMode === 'flashcards' && (
-        <div className="py-4">
-          <Flashcard
-            flashcard={VOCABULARY[flashcardIndex]}
-            currentIndex={flashcardIndex}
-            totalCards={VOCABULARY.length}
-            onNext={() => setFlashcardIndex((prev) => (prev + 1) % VOCABULARY.length)}
-            onPrev={() => setFlashcardIndex((prev) => (prev - 1 + VOCABULARY.length) % VOCABULARY.length)}
-          />
-        </div>
-      )}
-
+      {/* Mode 5: Speech & Pronunciation */}
       {practiceMode === 'speech' && (
         <div className="py-4 space-y-6">
           <PronunciationPractice
@@ -129,13 +146,13 @@ export const PracticePage = () => {
           <div className="flex justify-center gap-3">
             <button
               onClick={() => setSpeechIndex((prev) => (prev - 1 + VOCABULARY.length) % VOCABULARY.length)}
-              className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-bold text-slate-700 text-xs"
+              className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 font-bold text-slate-700 text-xs shadow-xs cursor-pointer"
             >
               ← Previous Word
             </button>
             <button
               onClick={() => setSpeechIndex((prev) => (prev + 1) % VOCABULARY.length)}
-              className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs"
+              className="px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs shadow-xs cursor-pointer"
             >
               Next Word →
             </button>
@@ -143,18 +160,10 @@ export const PracticePage = () => {
         </div>
       )}
 
-      {practiceMode === 'quiz' && (
-        <div className="py-4">
-          <QuizQuestion
-            question={allQuestions[quizIndex]}
-            questionIndex={quizIndex}
-            totalQuestions={allQuestions.length}
-            isLastQuestion={quizIndex === allQuestions.length - 1}
-            onAnswer={() => {
-              addXp(15);
-              setQuizIndex((prev) => (prev + 1) % allQuestions.length);
-            }}
-          />
+      {/* Mode 6: Live Dictionary */}
+      {practiceMode === 'dictionary' && (
+        <div className="py-2">
+          <DictionarySearch />
         </div>
       )}
     </div>

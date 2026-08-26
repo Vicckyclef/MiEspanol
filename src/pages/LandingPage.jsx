@@ -2,15 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Sparkles,
-  MessageSquare,
   Volume2,
   Trophy,
   ArrowRight,
   CheckCircle2,
   Flame,
-  BookOpen,
-  Zap,
-  Play
+  BookOpen
 } from 'lucide-react';
 import { CATEGORIES } from '../data/spanishData';
 
@@ -58,15 +55,15 @@ export const LandingPage = () => {
           <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-slate-600 text-sm font-semibold">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-              <span>30+ Vocabulary Master Cards</span>
+              <span>Beginner to Pro (A1–B2)</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-              <span>Audio Speech Recognition</span>
+              <span>Numbers 0 to Trillions</span>
             </div>
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-              <span>Interactive AI Tutor Chat</span>
+              <span>Interactive Native Audio</span>
             </div>
           </div>
         </div>
@@ -135,7 +132,7 @@ export const LandingPage = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">Explore Top Learning Categories</h2>
-          <p className="text-slate-600 font-medium mt-2">Bite-sized modules designed for beginner & intermediate mastery.</p>
+          <p className="text-slate-600 font-medium mt-2">Bite-sized modules designed for beginner to advanced mastery.</p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -175,7 +172,7 @@ export const LandingPage = () => {
           </p>
           <Link
             to="/dashboard"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black text-base shadow-lg transition-all"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-black text-base shadow-lg transition-all cursor-pointer"
           >
             Launch Dashboard <ArrowRight className="w-5 h-5" />
           </Link>

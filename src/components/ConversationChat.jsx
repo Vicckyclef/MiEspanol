@@ -1,31 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Volume2, Send, RotateCcw, CheckCircle2, Bot, User } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 
 export const ConversationChat = ({ scenario, onComplete }) => {
   const { speakText, addXp } = useUser();
   const [currentStepId, setCurrentStepId] = useState(scenario.initialStepId);
-  const [messages, setMessages] = useState([]);
+  const msgCounter = useRef(1);
+
+  const [messages, setMessages] = useState(() => {
+    const initialStep = scenario.steps[scenario.initialStepId];
+    return initialStep ? [
+      {
+        id: 'msg-0',
+        sender: 'bot',
+        speaker: initialStep.speaker || 'AI Tutor',
+        spanish: initialStep.spanish,
+        english: initialStep.english,
+      }
+    ] : [];
+  });
   const [customInput, setCustomInput] = useState('');
   const [isFinished, setIsFinished] = useState(false);
   const chatBottomRef = useRef(null);
 
-  // Initialize conversation with the first tutor message
-  useEffect(() => {
+  // Trigger audio on initial load
+  const speakInitial = useCallback(() => {
     const initialStep = scenario.steps[scenario.initialStepId];
     if (initialStep) {
-      setMessages([
-        {
-          id: 'msg-0',
-          sender: 'bot',
-          speaker: initialStep.speaker || 'AI Tutor',
-          spanish: initialStep.spanish,
-          english: initialStep.english,
-        },
-      ]);
       speakText(initialStep.spanish);
     }
-  }, [scenario]);
+  }, [scenario, speakText]);
+
+  useEffect(() => {
+    speakInitial();
+  }, [speakInitial]);
 
   // Scroll to bottom when messages update
   useEffect(() => {
@@ -35,9 +43,9 @@ export const ConversationChat = ({ scenario, onComplete }) => {
   const handleSelectOption = (option) => {
     if (isFinished) return;
 
-    // Add user message to chat
+    msgCounter.current += 1;
     const userMsg = {
-      id: `msg-user-${Date.now()}`,
+      id: `msg-user-${msgCounter.current}`,
       sender: 'user',
       speaker: 'You',
       spanish: option.text,
@@ -51,8 +59,9 @@ export const ConversationChat = ({ scenario, onComplete }) => {
 
     if (nextStep) {
       setTimeout(() => {
+        msgCounter.current += 1;
         const botMsg = {
-          id: `msg-bot-${Date.now()}`,
+          id: `msg-bot-${msgCounter.current}`,
           sender: 'bot',
           speaker: nextStep.speaker || 'AI Tutor',
           spanish: nextStep.spanish,
@@ -122,7 +131,7 @@ export const ConversationChat = ({ scenario, onComplete }) => {
         </div>
         <button
           onClick={handleRestart}
-          className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white"
+          className="p-2.5 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white cursor-pointer"
           title="Restart Conversation"
         >
           <RotateCcw className="w-5 h-5" />
@@ -162,7 +171,7 @@ export const ConversationChat = ({ scenario, onComplete }) => {
                 {msg.sender === 'bot' && (
                   <button
                     onClick={() => speakText(msg.spanish)}
-                    className="p-1 text-slate-400 hover:text-rose-600 transition-colors"
+                    className="p-1 text-slate-400 hover:text-rose-600 transition-colors cursor-pointer"
                   >
                     <Volume2 className="w-4 h-4" />
                   </button>
@@ -193,7 +202,7 @@ export const ConversationChat = ({ scenario, onComplete }) => {
             </div>
             <button
               onClick={handleRestart}
-              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors"
+              className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer"
             >
               Practice Again
             </button>
@@ -209,7 +218,7 @@ export const ConversationChat = ({ scenario, onComplete }) => {
                   <button
                     key={idx}
                     onClick={() => handleSelectOption(opt)}
-                    className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-rose-400 hover:bg-rose-50/50 font-bold text-slate-700 text-xs sm:text-sm transition-all shadow-2xs flex items-center justify-between group"
+                    className="w-full text-left p-3 rounded-xl border border-slate-200 hover:border-rose-400 hover:bg-rose-50/50 font-bold text-slate-700 text-xs sm:text-sm transition-all shadow-2xs flex items-center justify-between group cursor-pointer"
                   >
                     <span>{opt.text}</span>
                     <span className="text-xs font-bold text-rose-500 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -232,7 +241,7 @@ export const ConversationChat = ({ scenario, onComplete }) => {
               <button
                 type="submit"
                 disabled={!customInput.trim()}
-                className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white disabled:opacity-40 transition-colors"
+                className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white disabled:opacity-40 transition-colors cursor-pointer"
               >
                 <Send className="w-4 h-4" />
               </button>

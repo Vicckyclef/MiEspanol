@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Volume2, Sparkles, RefreshCw, CheckCircle2, XCircle, Calculator, Zap } from 'lucide-react';
+import { Volume2, RefreshCw, CheckCircle2, XCircle, Calculator } from 'lucide-react';
 import { numberToSpanish, generateRandomNumberQuiz } from '../utils/spanishNumbers';
 import { useUser } from '../context/UserContext';
 
@@ -17,10 +17,15 @@ export const NumbersMaster = () => {
   const [quizIsCorrect, setQuizIsCorrect] = useState(false);
 
   const presets = [
+    { label: '0', value: 0 },
     { label: '7', value: 7 },
+    { label: '16', value: 16 },
     { label: '25', value: 25 },
+    { label: '99', value: 99 },
     { label: '100', value: 100 },
+    { label: '250', value: 250 },
     { label: '1,500', value: 1500 },
+    { label: '2,026', value: 2026 },
     { label: '1,000,000', value: 1000000 },
     { label: '1,000,000,000', value: 1000000000 },
     { label: '1,000,000,000,000 (Trillion)', value: 1000000000000 },
